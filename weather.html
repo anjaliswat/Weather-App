@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="test/css" href="weather.css">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBanVAHxTf1a7yYfwnXBOXO3LMxbeXhh5k"> </script>
+    <script type="text/javascript" src="weather.js"> </script>
+  </head>
+  <body>
+
+    <div class="weather-app">
+      <div class="temperature"><span id="temperature">0</span> &deg; </div>
+      <div class="location"><span id="location">Unknown</span></div>
+      <!-- <img id="icon" width="75px" src="imgs/codes/200.png" /> -->
+
+      <div class="humidity">
+        <!-- <img src="imgs/humidity.png" height="16px" /> -->
+        <span id="humidity">0</span>%
+      </div>
+
+      <div class="wind">
+        <span id="wind">0</span> mph <span id="direction"> N </span>
+      </div>
+      <input id="address" type="textbox">
+      <input type="button" value="Enter" onclick="codeAddress()">
+    </div>
+  </body>
+</html>
