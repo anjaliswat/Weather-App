@@ -1,26 +1,64 @@
 <html>
   <head>
-    <link rel="stylesheet" type="test/css" href="weather.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="weather.css">
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBanVAHxTf1a7yYfwnXBOXO3LMxbeXhh5k"> </script>
     <script type="text/javascript" src="weather.js"> </script>
   </head>
   <body>
-
-    <div class="weather-app">
-      <div class="temperature"><span id="temperature">0</span> &deg; </div>
-      <div class="location"><span id="location">Unknown</span></div>
-      <!-- <img id="icon" width="75px" src="imgs/codes/200.png" /> -->
-
-      <div class="humidity">
-        <!-- <img src="imgs/humidity.png" height="16px" /> -->
-        <span id="humidity">0</span>%
+    <div id="top" class="top">
+      <input id="address" class="address" type="textbox">
+      <div class="temperature"><span id="temperature"> </span>  </div>
+    </div>
+    <div class="hourly" id="hourly"> </div>
+    <div class="daily" id="daily">
+      <div class="day">
+        <p class="day0" id="0"> </p>
+        <i class="day0" id='10'></i>
+        <p class="day0" id="100"> </p>
+        <p class="day0" id="1000"> </p>
       </div>
-
-      <div class="wind">
-        <span id="wind">0</span> mph <span id="direction"> N </span>
+      <div class="day">
+        <p class="day1" id="1"> </p>
+        <i class="day1" id="11"> </i>
+        <p class="day1" id="101"> </p>
+        <p class="day1" id="1001"> </p>
       </div>
-      <input id="address" type="textbox">
-      <input type="button" value="Enter" onclick="codeAddress()">
+      <div class="day">
+        <p class="day2" id="2"> </p>
+        <i class="day2" id="12"> </i>
+        <p class="day2" id="102"> </p>
+        <p class="day2" id="1002"> </p>
+      </div>
+      <div class="day">
+        <p class="day3" id="3"> </p>
+        <i class="day3" id="13"> </i>
+        <p class="day3" id="103"> </p>
+        <p class="day3" id="1003"> </p>
+      </div>
+      <div class="day">
+        <p class="day4" id="4"> </p>
+        <i class="day4" id="14"> </i>
+        <p class="day4" id="104"> </p>
+        <p class="day4" id="1004"> </p>
+      </div>
+      <div class="day">
+        <p class="day5" id="5"> </p>
+        <i class="day5" id="15"> </i>
+        <p class="day5" id="105"> </p>
+        <p class="day5" id="1005"> </p>
+      </div>
+      <div class="day">
+        <p class="day6" id="6"> </p>
+        <i class="day6" id="16"> </i>
+        <p class="day6" id="106"> </p>
+        <p class="day6" id="1006"> </p>
+      </div>
+      <div class="day">
+        <p class="day7" id="7"> </p>
+        <i class="day7" id="17"> </i>
+        <p class="day7" id="107"> </p>
+        <p class="day7" id="1007"> </p>
+      </div>
     </div>
   </body>
-</html>
