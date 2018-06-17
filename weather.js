@@ -17,36 +17,46 @@ window.onload = function () {
   var input = document.getElementById("address");
   input.addEventListener('keyup', function(event){
     if (event.keyCode=== 13) {
+      unhide('hidden');
       codeAddress();
     }
   });
 }
 
+function unhide(divID) {
+var item = document.getElementById(divID);
+if (item) {
+    if(item.className=='hidden'){
+        item.className = 'container' ;
+    }
+}}
+
 function getData(weather_url) {
   fetch(proxyurl + weather_url,  {mode: 'cors'})
   .then((resp) => resp.json())
   .then(function(data) {
-    console.log(data);
     var weather = {};
+    console.log(data)
     weather.temp = Math.round(data.currently.temperature);
     renderTemperature(weather);
     var date = new Date();
     var day = date.getDay();
     id = 0;
-    iconid = 10;
-    highid = 100;
-    lowid = 1000;
+    iconid = 0;
+    highid = 0;
+    lowid = 0;
+    hourlyid = 0;
     for(i = day+1; i <= 7; i++) {
       renderDay(i, id)
       id += 1;
       dailyicon = (data.daily.data[i].icon);
       dailyHigh = Math.round(data.daily.data[i].apparentTemperatureHigh);
       dailyLow = Math.round(data.daily.data[i].apparentTemperatureLow);
-      renderHighLow(dailyHigh, highid);
-      renderHighLow(dailyLow, lowid);
+      renderHighLow(dailyHigh, 'high' + highid, 'high');
+      renderHighLow(dailyLow, 'low' + lowid, 'low');
       highid +=1
       lowid +=1
-      renderIcon(dailyicon, iconid);
+      renderIcon(dailyicon, 'icon' + iconid);
       iconid +=1
     }
 
@@ -56,13 +66,25 @@ function getData(weather_url) {
       dailyicon = (data.daily.data[i].icon);
       dailyHigh = Math.round(data.daily.data[i].apparentTemperatureHigh);
       dailyLow = Math.round(data.daily.data[i].apparentTemperatureLow);
-      renderHighLow(dailyHigh, highid);
-      renderHighLow(dailyLow, lowid);
+      renderHighLow(dailyHigh, 'high' + highid, 'high');
+      renderHighLow(dailyLow, 'low' + lowid, 'low');
       highid +=1
       lowid +=1
-      renderIcon(dailyicon, iconid);
+      renderIcon(dailyicon, 'icon' + iconid);
       iconid += 1
     }
+
+  //  for(i = 0; i < 23; i++) {
+
+
+//      hourlyicon = data.hourly.data[i].icon;
+//      renderIcon(dailyicon, 'hourlyIcon' + hourlyid);
+//      hourlytemp = data.hourly.data[i].temperature;
+//      renderHourlyTime(hourlyid, 'time' + hourlyid);
+//      document.getElementById('hourlyTemp' + hourlyid).innerHTML = hourlytemp;
+
+  //    hourlyid = hourlyid + 1;
+  //  }
   })
   .catch(function(error) {
     console.log(error);
@@ -71,11 +93,10 @@ function getData(weather_url) {
 
 function renderTemperature(weather) {
   temp.innerHTML = weather.temp;
+  document.getElementById('degree').innerHTML = ('\xB0');
 }
 
 function renderIcon(icon, id) {
-  console.log(icon);
-  console.log(id);
   switch (icon) {
     case 'clear-day':
       document.getElementById(id).className = 'fas fa-sun';
@@ -93,15 +114,6 @@ function renderIcon(icon, id) {
       document.getElementById(id).className = 'fas fa-snowflake';
       document.getElementById(id).style.color = '#696969';
       break;
-  //  case 'sleet':
-    //  icon.class = './images/sun.png';
-      //break;
-    //case 'wind':
-    //  icon.class = './images/sun.png';
-      //break;
-    //case 'fog':
-      //icon.class = './images/sun.png';
-      //break;
     case 'cloudy':
       document.getElementById(id).className = 'far fa-cloud';
       document.getElementById(id).style.color = '#00BFFF';
@@ -117,32 +129,37 @@ function renderIcon(icon, id) {
   }
 }
 
-function renderHighLow(temp, id) {
-    document.getElementById(id).innerHTML = temp;
+function renderHighLow(temp, id, highlow) {
+  if(highlow == 'high') {
+    document.getElementById(id).innerHTML = 'Hi : ' + temp;
+  }
+  else {
+    document.getElementById(id).innerHTML = 'Lo : ' + temp;
+  }
 }
 
 function renderDay(day, id) {
   switch (day) {
     case 1:
-      document.getElementById(id).innerHTML = 'Monday';
+      document.getElementById(id).innerHTML = 'Mon';
       break;
     case 2:
-      document.getElementById(id).innerHTML = 'Tuesday';
+      document.getElementById(id).innerHTML = 'Tue';
       break;
     case 3:
-      document.getElementById(id).innerHTML = 'Wednesday';
+      document.getElementById(id).innerHTML = 'Wed';
       break;
     case 4:
-      document.getElementById(id).innerHTML = 'Thursday';
+      document.getElementById(id).innerHTML = 'Thu';
       break;
     case 5:
-      document.getElementById(id).innerHTML = 'Friday';
+      document.getElementById(id).innerHTML = 'Fri';
       break;
     case 6:
-      document.getElementById(id).innerHTML = 'Saturday';
+      document.getElementById(id).innerHTML = 'Sat';
       break;
     case 7:
-      document.getElementById(id).innerHTML = 'Sunday';
+      document.getElementById(id).innerHTML = 'Sun';
       break;
   }
 }
@@ -168,4 +185,15 @@ function codeAddress() {
 function getGeolocation() {
   fetch(proxyurl + location_url,  {mode: 'cors'})
   .then((resp) => resp.json())
+}
+
+function toggleUnit(unit) {
+  if(unit == 'celsius') {
+    weather_url = `https://api.darksky.net/forecast/dd57abdb366484f0f89f1fa91e9fb3ed/${latitude},${longitude}?units=si`
+    getData(weather_url)
+  }
+  if(unit == 'fahrenheit') {
+    weather_url =  `https://api.darksky.net/forecast/dd57abdb366484f0f89f1fa91e9fb3ed/${latitude},${longitude}?units=us`
+    getData(weather_url)
+  }
 }

@@ -1,64 +1,99 @@
-<html>
+<!doctype html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="weather.css">
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBanVAHxTf1a7yYfwnXBOXO3LMxbeXhh5k"> </script>
-    <script type="text/javascript" src="weather.js"> </script>
   </head>
   <body>
-    <div id="top" class="top">
+  <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+  <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBanVAHxTf1a7yYfwnXBOXO3LMxbeXhh5k"> </script>
+    <script type="text/javascript" src="weather.js"> </script>
+
+    <div id="search" class="search">
       <input id="address" class="address" type="textbox">
-      <div class="temperature"><span id="temperature"> </span>  </div>
+      <div id="currentTemperature">
+        <div class="temperature"><span id="temperature"> </span>  </div>
+        <div class="degree" id="degree"> </div>
+        <div class="toggle">
+          <button class="celsius" id="celsius" onClick="toggleUnit('celsius')"> C </button>
+          /
+          <button class="fahrenheit" id="fahrenheit" onClick="toggleUnit('fahrenheit')"> F </button>
+        </div>
+      </div>
     </div>
-    <div class="hourly" id="hourly"> </div>
-    <div class="daily" id="daily">
-      <div class="day">
-        <p class="day0" id="0"> </p>
-        <i class="day0" id='10'></i>
-        <p class="day0" id="100"> </p>
-        <p class="day0" id="1000"> </p>
-      </div>
-      <div class="day">
-        <p class="day1" id="1"> </p>
-        <i class="day1" id="11"> </i>
-        <p class="day1" id="101"> </p>
-        <p class="day1" id="1001"> </p>
-      </div>
-      <div class="day">
-        <p class="day2" id="2"> </p>
-        <i class="day2" id="12"> </i>
-        <p class="day2" id="102"> </p>
-        <p class="day2" id="1002"> </p>
-      </div>
-      <div class="day">
-        <p class="day3" id="3"> </p>
-        <i class="day3" id="13"> </i>
-        <p class="day3" id="103"> </p>
-        <p class="day3" id="1003"> </p>
-      </div>
-      <div class="day">
-        <p class="day4" id="4"> </p>
-        <i class="day4" id="14"> </i>
-        <p class="day4" id="104"> </p>
-        <p class="day4" id="1004"> </p>
-      </div>
-      <div class="day">
-        <p class="day5" id="5"> </p>
-        <i class="day5" id="15"> </i>
-        <p class="day5" id="105"> </p>
-        <p class="day5" id="1005"> </p>
-      </div>
-      <div class="day">
-        <p class="day6" id="6"> </p>
-        <i class="day6" id="16"> </i>
-        <p class="day6" id="106"> </p>
-        <p class="day6" id="1006"> </p>
-      </div>
-      <div class="day">
-        <p class="day7" id="7"> </p>
-        <i class="day7" id="17"> </i>
-        <p class="day7" id="107"> </p>
-        <p class="day7" id="1007"> </p>
-      </div>
+
+      <div class="hidden" style="margin-top: 50px" id="hidden">
+        <div class="row">
+          <div class="col-xl">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-body">
+                <p class="card-title" style="text-align: center; font-size: 20px" id="0"> </p>
+                <i class="card-img" style="padding-top: 8px; font-size: 55px; display: block; margin-left:auto; margin-right:auto; width:55%" id='icon0'></i>
+                <p class="card-text" style="padding-top: 18px; text-align: center" id="high0"> </p>
+                <p class="card-text" style="padding-top: 18px; text-align: center" id="low0"> </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-body">
+                <p class="card-title" style="text-align: center; font-size: 20px" id="1"> </p>
+                <i class="card-img" style="padding-top: 8px; font-size: 55px; display: block; margin-left:auto; margin-right:auto; width:55%" id="icon1"> </i>
+                <p class="card-text"style="padding-top: 18px; text-align: center" id="high1"> </p>
+                <p class="card-text"style="padding-top: 18px; text-align: center" id="low1"> </p>
+              </div>
+          </div>
+          </div>
+
+          <div class="col-xl">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-body">
+                <p class="card-title" style="font-size: 20px; text-align: center" id="2"> </p>
+                <i class="card-img" style="padding-top: 8px; font-size: 55px; display: block; margin-left:auto; margin-right:auto; width:55%" id="icon2"> </i>
+                <p class="card-text" style="padding-top: 18px; text-align: center" id="high2"> </p>
+                <p class="card-text" style="padding-top: 18px; text-align: center" id="low2"> </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-body">
+                <p class="card-title" style="text-align: center; font-size: 20px" id="3"> </p>
+                <i class="card-img" style="padding-top: 8px; font-size: 55px; display: block; margin-left:auto; margin-right:auto; width:55%" id="icon3"> </i>
+                <p class="card-text" style="padding-top: 18px; text-align: center" id="high3"> </p>
+                <p class="card-text" style="padding-top: 18px; text-align: center" id="low3"> </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-body">
+                <p class="card-title" style="text-align: center; font-size: 20px" id="4"> </p>
+                <i class="card-img" style="padding-top: 8px; font-size: 55px; display: block; margin-left:auto; margin-right:auto; width:55%" id="icon4"> </i>
+                <p class="card-text" style="padding-top: 18px; text-align: center" id="high4"> </p>
+                <p class="card-text" style="padding-top: 18px; text-align: center" id="low4"> </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-body">
+                <p class="card-title" style="text-align: center; font-size: 20px" id="5"> </p>
+                <i class="card-img" style="padding-top: 8px; font-size: 55px; display: block; margin-left:auto; margin-right:auto; width:55%" id="icon5"> </i>
+                <p class="card-text" style="padding-top: 18px; text-align: center" id="high5"> </p>
+                <p class="card-text" style="padding-top: 18px; text-align: center" id="low5"> </p>
+              </div>
+            </div>
+          </div>
+         </div>
+        </div>
     </div>
   </body>
