@@ -73,18 +73,6 @@ function getData(weather_url) {
       renderIcon(dailyicon, 'icon' + iconid);
       iconid += 1
     }
-
-  //  for(i = 0; i < 23; i++) {
-
-
-//      hourlyicon = data.hourly.data[i].icon;
-//      renderIcon(dailyicon, 'hourlyIcon' + hourlyid);
-//      hourlytemp = data.hourly.data[i].temperature;
-//      renderHourlyTime(hourlyid, 'time' + hourlyid);
-//      document.getElementById('hourlyTemp' + hourlyid).innerHTML = hourlytemp;
-
-  //    hourlyid = hourlyid + 1;
-  //  }
   })
   .catch(function(error) {
     console.log(error);
